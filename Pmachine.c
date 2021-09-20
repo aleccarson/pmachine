@@ -39,6 +39,7 @@ int main (int argc, char *argv[])   {
 
     // iterate over file, building IRArray as we go
     for(int i = 0; input != NULL; i++)  {
+        printf("%d Loops\n", i);
         // get current line
         fgets(buffer, 10, input);
 
@@ -46,13 +47,19 @@ int main (int argc, char *argv[])   {
         token = strtok(buffer, " ");
         IRArray[i].OP = strtol(token, &ptr, 10);
 
+        printf("OP = %ld\n", IRArray[i].OP);
+
         // set rest of tokens to values
         token = strtok(NULL, " ");
         IRArray[i].L = strtol(token, &ptr, 10);
 
+        printf("L = %ld\n", IRArray[i].L);
+
         token = strtok(NULL, "");
         IRArray[i].M = strtol(token, &ptr, 10);
+        printf("M = %ld\n", IRArray[i].M);
     }
+
     
     return 0;
 }
