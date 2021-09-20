@@ -38,7 +38,7 @@ int main (int argc, char *argv[])   {
         return -1;
 
     // iterate over file, building IRArray as we go
-    for(int i = 0; input != NULL; i++)  {
+    for(int i = 0; !feof(input); i++)  {
         printf("%d Loops\n", i);
         // get current line
         fgets(buffer, 10, input);
