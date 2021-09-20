@@ -11,7 +11,7 @@ struct IR {
 int main (int argc, char *argv[])   {
     // create and set PAS array to 0
     int PAS[500] = {0};
-    struct IR pog[150];
+    struct IR IRArray[150];
     
     return 0;
 }
