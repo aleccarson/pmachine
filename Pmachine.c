@@ -58,6 +58,23 @@ int main (int argc, char *argv[])   {
         token = strtok(NULL, "");
         IRArray[i].M = strtol(token, &ptr, 10);
         printf("M = %ld\n", IRArray[i].M);
+
+        IC += 3;
+    }
+
+    fclose(input);
+
+    // setup reg based on location of IC
+    GP = IC;
+    DP = IC - 1;
+    FREE = IC + 10;
+    BP = IC;
+    PC = 0;
+    SP = 500;
+
+    // run instructions (exec)
+    for(int i = 0; i <= IC; i++) {
+
     }
 
     
