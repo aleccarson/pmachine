@@ -14,12 +14,14 @@ struct IR {
 int main (int argc, char *argv[])   {
     // Initialize arrays and vars
     int GP;
+    int IR;
     int IC = 0;
     int DP = 0;
     int FREE = 0;
     int BP = 0;
     int PC = 0;
     int SP = 0;
+    int halt = 1;
     int PAS[500] = {0};
     struct IR IRArray[150];
 
@@ -61,7 +63,8 @@ int main (int argc, char *argv[])   {
 
         IC += 3;
     }
-
+    
+    // close input file when done
     fclose(input);
 
     // setup reg based on location of IC
@@ -71,9 +74,12 @@ int main (int argc, char *argv[])   {
     BP = IC;
     PC = 0;
     SP = 500;
+ 
+    // runs until halt flag is reached
+    for(int i = 0; halt != 0; i++) {
+        // fetch cycle
+        IR = PC;
 
-    // run instructions (exec)
-    for(int i = 0; i <= IC; i++) {
 
     }
 
