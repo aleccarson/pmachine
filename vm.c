@@ -41,7 +41,6 @@ int main (int argc, char *argv[])   {
 
     // iterate over file, building IRArray as we go
     for(int i = 0; !feof(input); i++)  {
-        printf("%d Loops\n", i);
         // get current line
         fgets(buffer, 10, input);
 
@@ -49,17 +48,12 @@ int main (int argc, char *argv[])   {
         token = strtok(buffer, " ");
         IRArray[i].OP = strtol(token, &ptr, 10);
 
-        printf("OP = %ld\n", IRArray[i].OP);
-
         // set rest of tokens to values
         token = strtok(NULL, " ");
         IRArray[i].L = strtol(token, &ptr, 10);
 
-        printf("L = %ld\n", IRArray[i].L);
-
         token = strtok(NULL, "");
         IRArray[i].M = strtol(token, &ptr, 10);
-        printf("M = %ld\n", IRArray[i].M);
 
         IC += 3;
     }
@@ -75,11 +69,84 @@ int main (int argc, char *argv[])   {
     PC = 0;
     SP = 500;
  
+    // print column eaders to console as well as initial values
+    printf("                PC  BP  SP  DP  DATA\n");
+    printf("Initial Values: %d  %d  %d  %d\n", PC, BP, SP, DP);
+
+
+
     // runs until halt flag is reached
     for(int i = 0; halt != 0; i++) {
         // fetch cycle
-        IR = PC;
+        IR = PAS[PC];
+        PC += 3;
 
+        // exec cycle
+        if(IRAarray[i].OP == 1)  {
+            if(BP == GP)    {
+                DP++;
+                PAS[SP] == M;
+            }
+
+        }  
+        if(IRAarray[i].OP == 2)  {
+            // RTN
+            if(IRAarray[i].M == 0)  {
+                SP == BP + 1;
+                BP == PAS[SP - 2];
+                PC == PAS[SP -3];
+            }
+
+            // NEG
+            if(IRAarray[i].M == 1)  {
+                if(BP == GP)
+                    PAS[DP] == -1 * PAS[DP];
+
+                else
+                    PAS[SP] == -1 * PAS[SP]; 
+            }
+
+            // ADD
+            if(IRAarray[i].M == 2)  {
+                if(BP == GP)    {
+                    DP--;
+                    PAS[DP]++;
+                }
+            }
+            if(IRAarray[i].M == 3)
+            if(IRAarray[i].M == 4)
+            if(IRAarray[i].M == 5)
+            if(IRAarray[i].M == 6)
+            if(IRAarray[i].M == 7)
+            if(IRAarray[i].M == 8)
+            if(IRAarray[i].M == 9)
+            if(IRAarray[i].M == 10)
+            if(IRAarray[i].M == 11)
+            if(IRAarray[i].M == 12)
+            if(IRAarray[i].M == 13)  
+
+        }
+        if(IRAarray[i].OP == 3)  {
+
+        }
+        if(IRAarray[i].OP == 4)  {
+            
+        }
+        if(IRAarray[i].OP == 5)  {
+
+        }
+        if(IRAarray[i].OP == 6)  {
+
+        }
+        if(IRAarray[i].OP == 7)  {
+
+        }
+        if(IRAarray[i].OP == 8)  {
+
+        }
+        if(IRAarray[i].OP == 9)  {
+
+        }
 
     }
 
