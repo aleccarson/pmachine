@@ -23,6 +23,7 @@ int main (int argc, char *argv[])   {
     int BP = 0;
     int PC = 0;
     int SP = 0;
+    int line = 0;
     int HALT = 1;
     int PAS[500] = {0};
     struct IR IRArray[150];
@@ -58,6 +59,8 @@ int main (int argc, char *argv[])   {
         IRArray[i].M = strtol(token, &ptr, 10);
 
         IC += 3;
+
+        line++;
     }
     
     // close input file when done
@@ -78,12 +81,18 @@ int main (int argc, char *argv[])   {
 
 
     // runs until halt flag is reached
-    for(int i = 0; HALT != 0; i++) {
+    for(int i = 0; HALT == 1; i++) {
+        
+        printf("Line: %d         %d  %d  %d  %d\n", PC, PC, BP, SP, PAS[DP]);
         // fetch cycle
         IR = PAS[PC];
         PC += 3;
 
+ 
+
         // exec cycle
+
+        // 01 LIT
         if(IRArray[i].OP == 1)  {
             // if bp == gp then dp++, PAS(DP) = M
             if(BP == GP)    {
@@ -93,7 +102,6 @@ int main (int argc, char *argv[])   {
             // else sp --, PAS[SP] = m
             SP--;
             PAS[SP] == IRArray[i].M;
-
         }  
         // 02 OPR
         if(IRArray[i].OP == 2)  {
@@ -260,6 +268,7 @@ int main (int argc, char *argv[])   {
                 }
             }
 
+            printf("OPR\n");
         }
 
         // LOD 
@@ -278,6 +287,8 @@ int main (int argc, char *argv[])   {
                 SP--;
                 PAS[SP] == PAS[base(IRArray[i].L, PAS, BP) - IRArray[i].M];
             }
+
+            printf("LOD\n");
         }
 
         // STO
@@ -297,6 +308,7 @@ int main (int argc, char *argv[])   {
                 SP++;
             }
             
+            printf("STO\n");
         }
 
         // CAL
@@ -307,6 +319,8 @@ int main (int argc, char *argv[])   {
 
             BP == SP - 1;
             PC == IRArray[i].M;
+
+            printf("CAL\n");
         }
 
         // INC
@@ -316,11 +330,15 @@ int main (int argc, char *argv[])   {
             
             else
                 SP -= IRArray[i].M;
+            
+            printf("INC\n");
         }
 
         // JMP
         if(IRArray[i].OP == 7)  {
             PC == IRArray[i].M;
+            
+            printf("JMP\n");
         }
 
         // JPC
@@ -334,8 +352,9 @@ int main (int argc, char *argv[])   {
                 if(PAS[SP] == 0)    {
                     PC == IRArray[i].M;
                     SP++;
-        }
+                }
 
+            printf("JPC\n");
         }
 
         //  SYS
@@ -358,21 +377,24 @@ int main (int argc, char *argv[])   {
             if(IRArray[i].M == 2)    {
                 if(BP == GP)    {
                     DP++;
+                    printf("Please enter an integer: ");
                     scanf("%d", PAS[DP]);
                 }
 
                 else    {
                     SP--;
+                    printf("Please enter an integer: ");
                     scanf("%d", PAS[SP]);
                 }
             }
 
-        // SYS 03
-        if(IRArray[i].M == 3)
-            HALT == 0;
+            // SYS 03
+            if(IRArray[i].M == 3)   {
+                HALT = 0;
+            }
 
+            printf("SYS\n");
         }
-
     }
 
     
